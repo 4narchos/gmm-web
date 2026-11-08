@@ -10,7 +10,7 @@
   const PRECARGADOS = [
     {
       id: 'allianz',
-      nombre: 'MediMaxx Integral (Allianz)',
+      nombre: 'MediMaxx Integral · plan Amplio (Allianz)',
       corto: 'MediMaxx',
       deducible: 32_000,
       coaseguro: 0.10,
@@ -42,28 +42,57 @@
 
   const porDefecto = () => PRECARGADOS.map((seguro) => ({ ...seguro, propio: false }));
 
-  function guardar(lista) {
+  // Espejo en memoria: si el navegador no deja guardar (modo privado, Safari con
+  // almacenamiento bloqueado), la página sigue funcionando mientras esté abierta.
+  const memoria = [];
+  let fallido = false;
+
+  function leer() {
     const almacenLocal = almacen();
-    if (!almacenLocal) return;
+    if (!almacenLocal) return null;
+    try {
+      const crudo = JSON.parse(almacenLocal.getItem(CLAVE) || '[]');
+      return Array.isArray(crudo) ? crudo : [];
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function guardar(lista) {
+    memoria.length = 0;
+    memoria.push(...lista);
+    const almacenLocal = almacen();
+    if (!almacenLocal) {
+      fallido = true;
+      return;
+    }
     try {
       almacenLocal.setItem(CLAVE, JSON.stringify(lista));
     } catch (error) {
-      /* sin espacio o modo privado: seguimos sin guardar */
+      /* sin espacio o modo privado: queda la copia en memoria */
+      fallido = true;
+    }
+  }
+
+  function persistente() {
+    const almacenLocal = almacen();
+    if (!almacenLocal) return false;
+    try {
+      const prueba = 'gmm.prueba';
+      almacenLocal.setItem(prueba, '1');
+      almacenLocal.removeItem(prueba);
+      return true;
+    } catch (error) {
+      return false;
     }
   }
 
   function propios() {
-    const almacenLocal = almacen();
-    if (!almacenLocal) return [];
-    try {
-      const crudo = JSON.parse(almacenLocal.getItem(CLAVE) || '[]');
-      if (!Array.isArray(crudo)) return [];
-      return crudo
-        .filter((seguro) => seguro && typeof seguro.nombre === 'string')
-        .map((seguro) => normalizar(seguro, true));
-    } catch (error) {
-      return [];
-    }
+    const crudo = fallido ? null : leer();
+    if (crudo === null) return memoria.map((seguro) => normalizar(seguro, true));
+    return crudo
+      .filter((seguro) => seguro && typeof seguro.nombre === 'string')
+      .map((seguro) => normalizar(seguro, true));
   }
 
   function numero(valor) {
@@ -101,23 +130,31 @@
     guardar(propios().filter((seguro) => seguro.id !== id));
   }
 
+  let activoEnMemoria = null;
+
   function activo() {
     const almacenLocal = almacen();
+    if (!almacenLocal || fallido) return activoEnMemoria;
     try {
-      return almacenLocal ? almacenLocal.getItem('gmm.seguro-activo') : null;
+      return almacenLocal.getItem('gmm.seguro-activo') || activoEnMemoria;
     } catch (error) {
-      return null;
+      return activoEnMemoria;
     }
   }
 
   function fijarActivo(id) {
+    activoEnMemoria = id;
     const almacenLocal = almacen();
+    if (!almacenLocal) {
+      fallido = true;
+      return;
+    }
     try {
-      if (almacenLocal) almacenLocal.setItem('gmm.seguro-activo', id);
+      almacenLocal.setItem('gmm.seguro-activo', id);
     } catch (error) {
-      /* da igual */
+      fallido = true;
     }
   }
 
-  root.GMM_SEGUROS = { PRECARGADOS, todos, agregar, eliminar, activo, fijarActivo, normalizar };
+  root.GMM_SEGUROS = { PRECARGADOS, todos, agregar, eliminar, activo, fijarActivo, normalizar, persistente };
 })(typeof globalThis !== 'undefined' ? globalThis : this);

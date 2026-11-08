@@ -35,10 +35,23 @@
   const pills = $('seguro-pills');
 
   function fijarCuenta(valor, origen) {
-    const limpio = Math.max(0, Math.min(MAXIMO, Math.round(Number(valor) || 0)));
+    const bruto = Math.round(Number(valor) || 0);
+    const limpio = Math.max(MINIMO, Math.min(MAXIMO, bruto));
     estado.cuenta = limpio;
-    if (origen !== 'slider') slider.value = String(Math.max(MINIMO, Math.min(MAXIMO, limpio)));
+
     if (origen !== 'numero') numero.value = String(limpio);
+    slider.value = String(limpio);
+
+    let aviso = '';
+    if (bruto > MAXIMO) {
+      aviso = `Esta cuenta llega hasta ${dinero(MAXIMO)}: se calcula con ese tope.`;
+    } else if (bruto < MINIMO) {
+      aviso = `La cuenta mínima es ${dinero(MINIMO)}: se calcula con ese mínimo.`;
+    }
+    const nodoAviso = $('cuenta-aviso');
+    nodoAviso.hidden = !aviso;
+    nodoAviso.textContent = aviso;
+
     pintar();
   }
 
@@ -49,7 +62,8 @@
     fijarCuenta(soloDigitos || 0, 'numero');
   });
   numero.addEventListener('blur', () => {
-    if (estado.cuenta < MINIMO) fijarCuenta(MINIMO, 'numero');
+    // La caja siempre termina mostrando el número con el que se calculó.
+    numero.value = String(estado.cuenta);
   });
 
   function listaSeguros() {
@@ -65,6 +79,8 @@
     estado.seguroId = id;
     seguros.fijarActivo(id);
     pintar();
+    const activo = pills.querySelector('[aria-pressed="true"]');
+    if (activo) activo.focus({ preventScroll: true });
   }
 
   /* ---------- pintar ---------- */
@@ -171,7 +187,7 @@
       </div>
       <ul class="tarjeta-seguro-datos">
         <li><span>Pago de entrada</span><strong>${dinero(seguro.deducible)}</strong></li>
-        <li><span>Tu parte del resto</span><strong>${porcentaje}%${calculo.tope !== null ? ` · techo ${dinero(calculo.tope)}` : ' · sin techo'}</strong></li>
+        <li><span>Tu parte del resto</span><strong>${porcentaje}%${calculo.tope !== null ? ` · techo ${dinero(calculo.tope)}` : ' · tope no indicado'}</strong></li>
         <li><span>Máximo aseguradora</span><strong>${dinero(seguro.sumaAsegurada)}</strong></li>
         ${seguro.prima ? `<li><span>Prima al año</span><strong>${dinero(seguro.prima)}</strong></li>` : ''}
       </ul>
@@ -240,17 +256,22 @@
     evento.preventDefault();
     const datos = new FormData(formulario);
     const nombre = String(datos.get('nombre') || '').trim();
-    const deducible = Number(datos.get('deducible'));
-    const coaseguro = Number(datos.get('coaseguro')) / 100;
+    const deducibleCrudo = String(datos.get('deducible') || '').trim();
+    const coaseguroCrudo = String(datos.get('coaseguro') || '').trim();
     const topeCrudo = String(datos.get('topeCoaseguro') || '').trim();
-    const sumaAsegurada = Number(datos.get('sumaAsegurada'));
+    const sumaCruda = String(datos.get('sumaAsegurada') || '').trim();
+    const deducible = Number(deducibleCrudo);
+    const coaseguro = Number(coaseguroCrudo) / 100;
+    const sumaAsegurada = Number(sumaCruda);
 
     if (!nombre) return mostrarError('Ponle un nombre al seguro.');
-    if (!Number.isFinite(deducible) || deducible < 0) return mostrarError('Revisa el pago de entrada.');
-    if (!Number.isFinite(coaseguro) || coaseguro < 0 || coaseguro > 1) {
+    if (deducibleCrudo === '' || !Number.isFinite(deducible) || deducible < 0) {
+      return mostrarError('Revisa el pago de entrada.');
+    }
+    if (coaseguroCrudo === '' || !Number.isFinite(coaseguro) || coaseguro < 0 || coaseguro > 1) {
       return mostrarError('Tu parte del resto va entre 0 y 100.');
     }
-    if (!Number.isFinite(sumaAsegurada) || sumaAsegurada <= 0) {
+    if (sumaCruda === '' || !Number.isFinite(sumaAsegurada) || sumaAsegurada <= 0) {
       return mostrarError('Falta el máximo que paga la aseguradora.');
     }
 
@@ -269,6 +290,17 @@
     mostrarError('');
     formulario.closest('details').open = false;
     pintar();
+
+    // Si el navegador no guarda datos, decirlo en la propia sección.
+    const avisoForm = $('form-aviso');
+    if (seguros.persistente()) {
+      avisoForm.hidden = true;
+      avisoForm.textContent = '';
+    } else {
+      avisoForm.hidden = false;
+      avisoForm.textContent =
+        'Este navegador no permite guardar datos: el seguro funciona mientras la página esté abierta.';
+    }
   });
 
   function mostrarError(mensaje) {
@@ -284,6 +316,8 @@
     seguros.eliminar(id);
     if (estado.seguroId === id) estado.seguroId = listaSeguros()[0].id;
     pintar();
+    const activo = pills.querySelector('[aria-pressed="true"]');
+    if (activo) activo.focus({ preventScroll: true });
   });
 
   /* ---------- arranque ---------- */

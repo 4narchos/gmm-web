@@ -26,6 +26,12 @@
   </p>
   <a class="boton boton-principal" href="#simulador">Juega con la cuenta del hospital</a>
   <p class="nota">Herramienta educativa. No es una cotización oficial.</p>
+  <noscript>
+    <p class="aviso-cuenta">
+      Esta página calcula con JavaScript. Sin él puedes leer los cinco pasos, pero el
+      simulador y el comparador no funcionan.
+    </p>
+  </noscript>
 </header>
 
 <main>
@@ -57,16 +63,20 @@
   <section class="seccion" id="ideas">
     <p class="paso">Paso 2</p>
     <h2>Las 4 ideas que importan</h2>
-    <p class="parrafo">Cuatro reglas, con un ejemplo sencillo de cada una:</p>
+    <p class="parrafo">
+      Cuatro reglas, con un ejemplo sencillo de cada una. Los ejemplos usan
+      MediMaxx Integral (Allianz); el simulador de abajo los ajusta a cada seguro.
+    </p>
 
     <div class="tarjetas">
       <article class="tarjeta">
         <span class="tarjeta-emoji" aria-hidden="true">🎟️</span>
         <h3>El pago de entrada</h3>
-        <p>Lo primero que sale de tu bolsa, todos los años, aunque la cuenta sea chica.</p>
+        <p>Lo primero que sale de tu bolsa cada año: de ahí arranca el seguro.</p>
         <p class="ejemplo">
-          Ejemplo: de los primeros <strong>$35,000</strong> de la cuenta, no se hace cargo
-          la aseguradora. Son tuyos.
+          Ejemplo: los primeros <strong>$32,000</strong> de la cuenta son tuyos; la
+          aseguradora empieza a cubrir después. Si la cuenta es más chica que eso,
+          pagas solo la cuenta.
         </p>
         <details class="termino">
           <summary>Así se llama en tu póliza</summary>
@@ -80,8 +90,8 @@
         <h3>Tu parte del resto</h3>
         <p>Un porcentaje de lo que sobra después del pago de entrada. Aquí, 10%.</p>
         <p class="ejemplo">
-          Ejemplo: si de $100,000 quitas los primeros $35,000, sobran $65,000.
-          Tu 10% son <strong>$6,500</strong>.
+          Ejemplo: si de $100,000 quitas los primeros $32,000, sobran $68,000.
+          Tu 10% son <strong>$6,800</strong>.
         </p>
         <details class="termino">
           <summary>Así se llama en tu póliza</summary>
@@ -95,7 +105,8 @@
         <p>Tu parte del resto tiene un techo. Si la cuenta es enorme, el techo te salva.</p>
         <p class="ejemplo">
           Ejemplo: en una cuenta de $1,500,000 tu 10% serían $146,800. Con un techo de
-          $100,000, pagas <strong>$100,000</strong> y ya.
+          $100,000, tu parte del resto se queda en <strong>$100,000</strong> y ya (el
+          pago de entrada va aparte).
         </p>
         <details class="termino">
           <summary>Así se llama en tu póliza</summary>
@@ -109,7 +120,7 @@
         <h3>El máximo que paga la aseguradora</h3>
         <p>Su límite absoluto por persona y por año. Arriba de eso, la diferencia es tuya.</p>
         <p class="ejemplo">
-          Ejemplo: con un máximo de $170,000,000 casi no lo tocas. Es un techo contra
+          Ejemplo: con un máximo de $180,000,000 casi no lo tocas. Es un techo contra
           catástrofes, no algo del día a día.
         </p>
         <details class="termino">
@@ -152,7 +163,8 @@
         <span>$10,000</span>
         <span>$2,000,000</span>
       </div>
-      <p class="nota" id="cuenta-ayuda">Escribe el número o arrastra la barra.</p>
+      <p class="nota" id="cuenta-ayuda">Escribe el número o arrastra la barra, de $10,000 a $2,000,000.</p>
+      <p class="aviso-cuenta" id="cuenta-aviso" hidden></p>
 
       <p class="campo-etiqueta">Con este seguro:</p>
       <div class="pills" id="seguro-pills" role="group" aria-label="Elige el seguro"></div>
@@ -172,7 +184,7 @@
         </div>
       </div>
 
-      <div class="desglose" aria-live="polite">
+      <div class="desglose">
         <div class="renglon">
           <span>1. Pago de entrada</span>
           <strong id="renglon-entrada">$0</strong>
@@ -188,7 +200,7 @@
         </div>
         <div class="renglon renglon-total">
           <span>Total de tu bolsa</span>
-          <strong id="renglon-total">$0</strong>
+          <strong id="renglon-total" aria-live="polite">$0</strong>
         </div>
         <div class="renglon renglon-suave">
           <span>La aseguradora paga</span>
@@ -234,6 +246,7 @@
         </label>
         <button class="boton boton-principal" type="submit">Añadir a la comparación</button>
         <p class="nota" id="form-error" role="alert" hidden></p>
+        <p class="nota" id="form-aviso" hidden></p>
       </form>
     </details>
   </section>
@@ -248,9 +261,10 @@
     </p>
     <p class="parrafo">
       Con eso respondes la pregunta del principio. Si te dicen “tu cuenta es de $X”,
-      busca tres números en tu póliza: el pago de entrada, tu porcentaje y el techo
-      de ese porcentaje. Si falta el techo, pregúntalo: en cuentas grandes es la
-      diferencia entre pagar $100,000 o $300,000.
+      busca tres números en tu póliza: cuánto pagas antes de que el seguro cubra, qué
+      porcentaje del resto te toca y el techo de ese porcentaje. Si el techo no
+      aparece, pregúntalo: en cuentas grandes es la diferencia entre pagar $100,000 o
+      $196,500 solo de tu parte del resto.
     </p>
     <a class="boton boton-secundario" href="#simulador">Volver a probar con otra cuenta</a>
   </section>
@@ -262,7 +276,11 @@
     oficial, no es asesoría y no sustituye tus condiciones generales. Los costos de
     hospital son estimados típicos; tu caso puede ser distinto.
   </p>
-  <p>Confirma siempre deducible, coaseguro, tope y suma asegurada con tu aseguradora o tu agente.</p>
+  <p>
+    Confirma siempre con tu aseguradora o tu agente: cuánto pagas antes de que empiece a
+    cubrir, qué porcentaje del resto te toca, el techo de ese porcentaje y el máximo
+    que paga el seguro.
+  </p>
 </footer>
 
 <script src="simulador.js"></script>

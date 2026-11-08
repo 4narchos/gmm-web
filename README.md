@@ -9,6 +9,10 @@ Medical Íntegro de SMNYL) y permite añadir otros.
 - Los seguros que agrega el usuario viven en `localStorage`.
 - Una sola pieza de lógica (la fórmula) y todo lo demás es contenido.
 
+La cuenta va de $10,000 a $2,000,000: si se escribe algo fuera de ese rango, la caja
+se ajusta al límite y la página lo avisa (nunca calcula con un número distinto al que
+muestra).
+
 ## Uso local
 
 ```bash
