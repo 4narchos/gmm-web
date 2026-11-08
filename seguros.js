@@ -10,7 +10,7 @@
   const PRECARGADOS = [
     {
       id: 'allianz',
-      nombre: 'MediMaxx Integral · plan Amplio (Allianz)',
+      nombre: 'MediMaxx Integral (Allianz)',
       corto: 'MediMaxx',
       deducible: 32_000,
       coaseguro: 0.10,

@@ -3,7 +3,9 @@
 Página web estática y educativa: una persona sin experiencia en seguros elige una
 cuenta de hospital y ve, en pesos, cuánto sale de su bolsa y cuánto paga la
 aseguradora. Incluye dos seguros precargados (MediMaxx Integral de Allianz y Alfa
-Medical Íntegro de SMNYL) y permite añadir otros.
+Medical Íntegro de SMNYL), permite cambiar el pago de entrada, el porcentaje del
+resto y el techo, y añadir otros seguros. Debajo, la prima anual y las
+características de cada plan.
 
 - Sin backend, sin cuentas, sin analytics. Se abre con doble clic o se sirve estático.
 - Los seguros que agrega el usuario viven en `localStorage`.
@@ -33,7 +35,8 @@ node --test tests/simulador.test.js
 
 Los tests comparan la fórmula contra números calculados a mano a partir de las
 pólizas: apendicitis, terapia intensiva con y sin tope de coaseguro, cuenta menor al
-deducible, coaseguro 0% y cuenta que rebasa la suma asegurada.
+deducible, coaseguro 0% y cuenta que rebasa la suma asegurada. La interfaz se probó
+en navegador: campos editables, popups, cambio de seguro y guardado.
 
 ## Publicar en GitHub Pages
 
@@ -52,12 +55,13 @@ No hace falta build ni `.nojekyll` (no hay carpetas con guion bajo).
 
 | Archivo | Qué hace |
 |---|---|
-| `index.html` | Todo el contenido educativo en cinco pasos |
+| `index.html` | El simulador, la sección de prima y la de características |
 | `styles.css` | Paleta cálida, móvil primero, sin framework |
 | `simulador.js` | La fórmula pura (corre en navegador y en Node) |
 | `seguros.js` | Seguros precargados + los del usuario en `localStorage` |
 | `escenarios.js` | Casos frecuentes y sus costos estimados |
-| `app.js` | Une estado, controles y pantalla |
+| `propuestas.js` | Prima anual, formas de pago y características de cada plan |
+| `app.js` | Une estado, controles, popups y pantalla |
 | `tests/simulador.test.js` | La fórmula contra casos conocidos |
 
 ## La fórmula
@@ -89,3 +93,5 @@ número.
   la web lo avisa.
 - No modela periodos de espera, preexistencias, gastos no cubiertos ni deducible por
   accidente. Es una calculadora de las cuatro reglas grandes, no un dictamen.
+- Los datos de las dos propuestas vienen del cuadro comparativo que dio el agente. Si
+  cambia la póliza, se actualizan `seguros.js` y `propuestas.js`.
