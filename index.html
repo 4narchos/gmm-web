@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entiende tu seguro de gastos médicos</title>
+  <meta name="description" content="Guía interactiva y gratuita: calcula cuánto pagas tú y cuánto paga tu seguro de gastos médicos mayores cuando llega la cuenta del hospital.">
+  <meta name="theme-color" content="#FBF6EE">
+  <meta property="og:title" content="Entiende tu seguro de gastos médicos">
+  <meta property="og:description" content="Calcula en 5 minutos cuánto pagas tú y cuánto paga tu seguro cuando llega la cuenta del hospital.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%B0%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="portada">
+  <p class="etiqueta">Guía interactiva · 5 minutos</p>
+  <h1>Entiende tu seguro de gastos médicos</h1>
+  <p class="intro">
+    Si mañana te hospitalizan y la cuenta es de $150,000, ¿cuánto pagas tú?
+    Con esta página lo ves con números, sin jerga y sin registro.
+  </p>
+  <a class="boton boton-principal" href="#simulador">Juega con la cuenta del hospital</a>
+  <p class="nota">Herramienta educativa. No es una cotización oficial.</p>
+</header>
+
+<main>
+
+  <!-- 1. ¿Qué es esto? -->
+  <section class="seccion" id="que-es">
+    <p class="paso">Paso 1</p>
+    <h2>¿Qué es esto?</h2>
+    <p class="parrafo">
+      Un seguro de gastos médicos es un acuerdo. Tú pagas cada año una cantidad fija
+      —eso se llama <strong>prima</strong>— y, si te hospitalizas, la aseguradora paga
+      la cuenta del hospital.
+    </p>
+    <p class="parrafo">
+      Pero la aseguradora no paga todo. Tiene cuatro reglas que deciden cuánto sale de
+      tu bolsa y cuánto de la suya. Esas cuatro reglas son toda esta página.
+    </p>
+    <div class="analogia">
+      <span class="analogia-icono" aria-hidden="true">🐷</span>
+      <p>
+        Piénsalo como una vaquita gigante. Todos ponen dinero cada año; cuando a uno le
+        toca el hospital, la vaquita paga. Solo que la vaquita tiene reglas: primero pones
+        tú una cantidad, luego compartes un porcentaje, y hay un techo para tu parte.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. Las 4 ideas -->
+  <section class="seccion" id="ideas">
+    <p class="paso">Paso 2</p>
+    <h2>Las 4 ideas que importan</h2>
+    <p class="parrafo">Con una cuenta de ejemplo de $100,000, así se reparte:</p>
+
+    <div class="tarjetas">
+      <article class="tarjeta">
+        <span class="tarjeta-emoji" aria-hidden="true">🎟️</span>
+        <h3>El pago de entrada</h3>
+        <p>Lo primero que sale de tu bolsa, todos los años, aunque la cuenta sea chica.</p>
+        <p class="ejemplo">
+          Ejemplo: de los primeros <strong>$35,000</strong> de la cuenta, no se hace cargo
+          la aseguradora. Son tuyos.
+        </p>
+        <details class="termino">
+          <summary>Así se llama en tu póliza</summary>
+          <p><strong>Deducible.</strong> Si te preguntan “¿qué deducible tiene?”, están
+          preguntando cuánto pagas antes de que el seguro empiece a cubrir.</p>
+        </details>
+      </article>
+
+      <article class="tarjeta">
+        <span class="tarjeta-emoji" aria-hidden="true">🍰</span>
+        <h3>Tu parte del resto</h3>
+        <p>Un porcentaje de lo que sobra después del pago de entrada. Aquí, 10%.</p>
+        <p class="ejemplo">
+          Ejemplo: si de $100,000 quitas los primeros $35,000, sobran $65,000.
+          Tu 10% son <strong>$6,500</strong>.
+        </p>
+        <details class="termino">
+          <summary>Así se llama en tu póliza</summary>
+          <p><strong>Coaseguro.</strong> Siempre se escribe como porcentaje.</p>
+        </details>
+      </article>
+
+      <article class="tarjeta">
+        <span class="tarjeta-emoji" aria-hidden="true">🛟</span>
+        <h3>Lo máximo que pagas tú</h3>
+        <p>Tu parte del resto tiene un techo. Si la cuenta es enorme, el techo te salva.</p>
+        <p class="ejemplo">
+          Ejemplo: en una cuenta de $1,500,000 tu 10% serían $146,500. Con un techo de
+          $100,000, pagas <strong>$100,000</strong> y ya.
+        </p>
+        <details class="termino">
+          <summary>Así se llama en tu póliza</summary>
+          <p><strong>Tope de coaseguro.</strong> No todos los seguros lo traen. Si no viene
+          escrito, no existe: por eso hay que preguntarlo.</p>
+        </details>
+      </article>
+
+      <article class="tarjeta">
+        <span class="tarjeta-emoji" aria-hidden="true">🏔️</span>
+        <h3>El máximo que paga la aseguradora</h3>
+        <p>Su límite absoluto por persona y por año. Arriba de eso, la diferencia es tuya.</p>
+        <p class="ejemplo">
+          Ejemplo: con un máximo de $170,000,000 casi no lo tocas. Es un techo contra
+          catástrofes, no algo del día a día.
+        </p>
+        <details class="termino">
+          <summary>Así se llama en tu póliza</summary>
+          <p><strong>Suma asegurada.</strong> Se escribe con muchos ceros y por eso asusta.</p>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <!-- 3. Simulador -->
+  <section class="seccion" id="simulador">
+    <p class="paso">Paso 3</p>
+    <h2>Juega con la cuenta</h2>
+    <p class="parrafo">
+      Mueve la cuenta y mira, en vivo, cómo se reparte entre tu bolsa y la aseguradora.
+    </p>
+
+    <div class="escenarios" role="group" aria-label="Casos frecuentes">
+      <p class="escenarios-titulo">Empieza con un caso frecuente:</p>
+      <div class="escenarios-lista" id="escenarios-lista"></div>
+      <p class="nota-escenarios">
+        Costos típicos estimados de hospital privado en México, 2025. La terapia intensiva
+        puede ir de $800,000 a $1,500,000: ajústala con el control.
+      </p>
+    </div>
+
+    <div class="panel">
+      <div class="panel-cabecera">
+        <label class="campo-etiqueta" for="cuenta-numero">Cuenta del hospital</label>
+        <div class="campo-dinero">
+          <span aria-hidden="true">$</span>
+          <input id="cuenta-numero" inputmode="numeric" autocomplete="off" value="150000" aria-describedby="cuenta-ayuda">
+          <span class="sr-only">pesos mexicanos</span>
+        </div>
+      </div>
+
+      <input id="cuenta-slider" type="range" min="10000" max="2000000" step="5000" value="150000" aria-label="Cuenta del hospital, de 10,000 a 2,000,000 pesos">
+      <div class="rango-etiquetas" aria-hidden="true">
+        <span>$10,000</span>
+        <span>$2,000,000</span>
+      </div>
+      <p class="nota" id="cuenta-ayuda">Escribe el número o arrastra la barra.</p>
+
+      <p class="campo-etiqueta">Con este seguro:</p>
+      <div class="pills" id="seguro-pills" role="group" aria-label="Elige el seguro"></div>
+
+      <div class="barra-contenedor">
+        <div class="barra" role="img" id="barra" aria-label="Reparto de la cuenta">
+          <div class="barra-parte barra-aseguradora" id="barra-aseguradora">
+            <span id="barra-aseguradora-texto"></span>
+          </div>
+          <div class="barra-parte barra-tuya" id="barra-tuya">
+            <span id="barra-tuya-texto"></span>
+          </div>
+        </div>
+        <div class="leyenda">
+          <span class="leyenda-item"><i class="punto punto-tuyo"></i> Sale de tu bolsa</span>
+          <span class="leyenda-item"><i class="punto punto-aseguradora"></i> Paga la aseguradora</span>
+        </div>
+      </div>
+
+      <div class="desglose" aria-live="polite">
+        <div class="renglon">
+          <span>1. Pago de entrada</span>
+          <strong id="renglon-entrada">$0</strong>
+        </div>
+        <div class="renglon">
+          <span>2. Tu parte del resto <small id="renglon-porcentaje"></small></span>
+          <strong id="renglon-resto">$0</strong>
+        </div>
+        <p class="aviso-tope" id="aviso-tope" hidden></p>
+        <div class="renglon renglon-total">
+          <span>Total de tu bolsa</span>
+          <strong id="renglon-total">$0</strong>
+        </div>
+        <div class="renglon renglon-suave">
+          <span>La aseguradora paga</span>
+          <strong id="renglon-aseguradora">$0</strong>
+        </div>
+        <p class="aviso-suma" id="aviso-suma" hidden></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Comparador -->
+  <section class="seccion" id="compara">
+    <p class="paso">Paso 4</p>
+    <h2>Compara seguros</h2>
+    <p class="parrafo">
+      Con la misma cuenta de <strong id="cuenta-compara">$150,000</strong>, así se ve cada
+      seguro. Todo en pesos.
+    </p>
+
+    <div class="comparador" id="comparador"></div>
+
+    <details class="agregar">
+      <summary>➕ Añade otro seguro</summary>
+      <p class="nota">
+        Se guarda solo en este navegador. No se manda a ningún servidor y no hay que
+        crear cuenta.
+      </p>
+      <form id="form-seguro" class="formulario">
+        <label>Nombre del seguro
+          <input name="nombre" required maxlength="60" placeholder="Hospital Azul Platino">
+        </label>
+        <label>Pago de entrada
+          <span class="campo-con-simbolo">$<input name="deducible" type="number" min="0" step="100" required placeholder="35000"></span>
+        </label>
+        <label>Tu parte del resto
+          <span class="campo-con-simbolo"><input name="coaseguro" type="number" min="0" max="100" step="1" required placeholder="10">%</span>
+        </label>
+        <label>Lo máximo que pagas tú (opcional)
+          <span class="campo-con-simbolo">$<input name="topeCoaseguro" type="number" min="0" step="1000" placeholder="100000"></span>
+        </label>
+        <label>El máximo que paga la aseguradora
+          <span class="campo-con-simbolo">$<input name="sumaAsegurada" type="number" min="0" step="100000" required placeholder="170000000"></span>
+        </label>
+        <button class="boton boton-principal" type="submit">Añadir a la comparación</button>
+        <p class="nota" id="form-error" role="alert" hidden></p>
+      </form>
+    </details>
+  </section>
+
+  <!-- 5. Cierre -->
+  <section class="seccion seccion-cierre" id="cierre">
+    <p class="paso">Paso 5</p>
+    <h2>La regla de bolsillo</h2>
+    <p class="regla">
+      Pago de entrada <span aria-hidden="true">+</span> tu parte del resto,
+      con un techo.
+    </p>
+    <p class="parrafo">
+      Con eso respondes la pregunta del principio. Si te dicen “tu cuenta es de $X”,
+      busca tres números en tu póliza: el pago de entrada, tu porcentaje y el techo
+      de ese porcentaje. Si falta el techo, pregúntalo: en cuentas grandes es la
+      diferencia entre pagar $100,000 o $300,000.
+    </p>
+    <a class="boton boton-secundario" href="#simulador">Volver a probar con otra cuenta</a>
+  </section>
+</main>
+
+<footer class="pie">
+  <p>
+    Esta página es una herramienta educativa e independiente. No es una cotización
+    oficial, no es asesoría y no sustituye tus condiciones generales. Los costos de
+    hospital son estimados típicos; tu caso puede ser distinto.
+  </p>
+  <p>Confirma siempre deducible, coaseguro, tope y suma asegurada con tu aseguradora o tu agente.</p>
+</footer>
+
+<script src="simulador.js"></script>
+<script src="seguros.js"></script>
+<script src="escenarios.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
