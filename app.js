@@ -129,6 +129,15 @@
     $('renglon-total').textContent = dinero(calculo.totalTuyo);
     $('renglon-aseguradora').textContent = dinero(calculo.pagaAseguradora);
 
+    const filaExcedente = $('renglon-excedente-fila');
+    if (calculo.excedente > 0) {
+      filaExcedente.hidden = false;
+      $('renglon-excedente').textContent = dinero(calculo.excedente);
+    } else {
+      filaExcedente.hidden = true;
+      $('renglon-excedente').textContent = '';
+    }
+
     const avisoSuma = $('aviso-suma');
     if (calculo.excedeSuma) {
       avisoSuma.hidden = false;

@@ -134,3 +134,20 @@ test('entradas negativas o basura se tratan como cero', () => {
   assert.equal(r.totalTuyo, 0);
   assert.equal(r.tope, null);
 });
+
+test('cuenta que rebasa el máximo: el excedente se ve en el desglose', () => {
+  const r = calcular({
+    cuenta: 200_000_000,
+    deducible: 35_000,
+    coaseguro: 0.10,
+    topeCoaseguro: null,
+    sumaAsegurada: 170_000_000,
+  });
+  assert.equal(r.excedente, 9_968_500);
+  assert.equal(r.pagoDeEntrada + r.tuParteDelResto + r.excedente, r.totalTuyo);
+});
+
+test('sin rebasar el máximo, el excedente es cero', () => {
+  const r = conSeguro(ALLIANZ, 150_000);
+  assert.equal(r.excedente, 0);
+});

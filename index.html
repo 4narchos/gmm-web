@@ -57,7 +57,7 @@
   <section class="seccion" id="ideas">
     <p class="paso">Paso 2</p>
     <h2>Las 4 ideas que importan</h2>
-    <p class="parrafo">Con una cuenta de ejemplo de $100,000, así se reparte:</p>
+    <p class="parrafo">Cuatro reglas, con un ejemplo sencillo de cada una:</p>
 
     <div class="tarjetas">
       <article class="tarjeta">
@@ -94,7 +94,7 @@
         <h3>Lo máximo que pagas tú</h3>
         <p>Tu parte del resto tiene un techo. Si la cuenta es enorme, el techo te salva.</p>
         <p class="ejemplo">
-          Ejemplo: en una cuenta de $1,500,000 tu 10% serían $146,500. Con un techo de
+          Ejemplo: en una cuenta de $1,500,000 tu 10% serían $146,800. Con un techo de
           $100,000, pagas <strong>$100,000</strong> y ya.
         </p>
         <details class="termino">
@@ -182,6 +182,10 @@
           <strong id="renglon-resto">$0</strong>
         </div>
         <p class="aviso-tope" id="aviso-tope" hidden></p>
+        <div class="renglon" id="renglon-excedente-fila" hidden>
+          <span>3. Arriba del máximo asegurado</span>
+          <strong id="renglon-excedente">$0</strong>
+        </div>
         <div class="renglon renglon-total">
           <span>Total de tu bolsa</span>
           <strong id="renglon-total">$0</strong>
@@ -217,16 +221,16 @@
           <input name="nombre" required maxlength="60" placeholder="Hospital Azul Platino">
         </label>
         <label>Pago de entrada
-          <span class="campo-con-simbolo">$<input name="deducible" type="number" min="0" step="100" required placeholder="35000"></span>
+          <span class="campo-con-simbolo">$<input name="deducible" type="number" min="0" step="any" required placeholder="35000"></span>
         </label>
         <label>Tu parte del resto
-          <span class="campo-con-simbolo"><input name="coaseguro" type="number" min="0" max="100" step="1" required placeholder="10">%</span>
+          <span class="campo-con-simbolo"><input name="coaseguro" type="number" min="0" max="100" step="any" required placeholder="10">%</span>
         </label>
         <label>Lo máximo que pagas tú (opcional)
-          <span class="campo-con-simbolo">$<input name="topeCoaseguro" type="number" min="0" step="1000" placeholder="100000"></span>
+          <span class="campo-con-simbolo">$<input name="topeCoaseguro" type="number" min="0" step="any" placeholder="100000"></span>
         </label>
         <label>El máximo que paga la aseguradora
-          <span class="campo-con-simbolo">$<input name="sumaAsegurada" type="number" min="0" step="100000" required placeholder="170000000"></span>
+          <span class="campo-con-simbolo">$<input name="sumaAsegurada" type="number" min="0" step="any" required placeholder="170000000"></span>
         </label>
         <button class="boton boton-principal" type="submit">Añadir a la comparación</button>
         <p class="nota" id="form-error" role="alert" hidden></p>

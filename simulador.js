@@ -34,12 +34,14 @@
 
     let totalTuyo = pagoDeEntrada + tuParteDelResto;
     let pagaAseguradora = cuenta - totalTuyo;
-    let excedeSuma = false;
+    let excedente = 0;
+    const excedeSuma = suma !== null && pagaAseguradora > suma;
 
-    if (suma !== null && pagaAseguradora > suma) {
-      excedeSuma = true;
+    if (excedeSuma) {
+      // La aseguradora paga su tope; lo que sobra de la cuenta también sale de tu bolsa.
+      excedente = pagaAseguradora - suma;
       pagaAseguradora = suma;
-      totalTuyo = cuenta - suma;
+      totalTuyo = pagoDeEntrada + tuParteDelResto + excedente;
     }
 
     return {
@@ -52,6 +54,7 @@
       tuParteDelResto,
       totalTuyo,
       pagaAseguradora,
+      excedente,
       topeAplicado: tope !== null && sobrante > 0 && restoSinTope > tope,
       excedeSuma,
     };
