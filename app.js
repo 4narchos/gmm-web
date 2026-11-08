@@ -13,6 +13,9 @@
   const dinero = (valor) => pesos.format(Math.round(valor));
   const cuentaHumana = (valor) => `$${Math.round(valor).toLocaleString('es-MX')}`;
 
+  const ENTIDADES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  const escapar = (texto) => String(texto ?? '').replace(/[&<>"']/g, (caracter) => ENTIDADES[caracter]);
+
   const MINIMO = 10_000;
   const MAXIMO = 2_000_000;
 
@@ -159,12 +162,12 @@
 
     articulo.innerHTML = `
       <header class="tarjeta-seguro-cabecera">
-        <h3>${seguro.nombre}</h3>
+        <h3>${escapar(seguro.nombre)}</h3>
         ${esActivo ? '<span class="marca-activo">En el simulador</span>' : ''}
       </header>
       <p class="tarjeta-seguro-total">${dinero(calculo.totalTuyo)}<small> de tu bolsa</small></p>
       <div class="mini-barra" aria-hidden="true">
-        <span class="mini-tuya" style="width:${porcentajeTuyo}%"></span>
+        <span class="mini-tuya" style="width:${porcentajeTuyo.toFixed(2)}%"></span>
       </div>
       <ul class="tarjeta-seguro-datos">
         <li><span>Pago de entrada</span><strong>${dinero(seguro.deducible)}</strong></li>
@@ -172,9 +175,9 @@
         <li><span>Máximo aseguradora</span><strong>${dinero(seguro.sumaAsegurada)}</strong></li>
         ${seguro.prima ? `<li><span>Prima al año</span><strong>${dinero(seguro.prima)}</strong></li>` : ''}
       </ul>
-      ${seguro.avisoTope ? `<p class="aviso-suave">⚠️ ${seguro.avisoTope}</p>` : ''}
+      ${seguro.avisoTope ? `<p class="aviso-suave">⚠️ ${escapar(seguro.avisoTope)}</p>` : ''}
       ${calculo.excedeSuma ? '<p class="aviso-suave">⚠️ La cuenta rebasa el máximo asegurado.</p>' : ''}
-      ${seguro.propio ? `<button class="quitar" type="button" data-quitar="${seguro.id}">Quitar este seguro</button>` : ''}
+      ${seguro.propio ? `<button class="quitar" type="button" data-quitar="${escapar(seguro.id)}">Quitar este seguro</button>` : ''}
     `;
 
     return articulo;
