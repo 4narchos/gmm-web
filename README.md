@@ -64,6 +64,9 @@ tu parte del resto = min(% × (cuenta − deducible), tope)   // sin tope si no 
 paga la aseguradora = min(cuenta − (pago de entrada + tu parte del resto), suma asegurada)
 ```
 
+Si la cuenta rebasa la suma asegurada, la aseguradora paga su tope y la diferencia se
+muestra como tercer renglón del desglose ("Arriba del máximo asegurado").
+
 ## Actualizar los seguros precargados
 
 Edita `PRECARGADOS` en `seguros.js`. Los datos salen del cuadro comparativo de las
@@ -77,7 +80,8 @@ número.
 
 - Los costos de hospital son estimados típicos de hospital privado en México (2025), no
   cotizaciones. La web lo dice en el pie.
-- El campo de cuenta va de $10,000 a $2,000,000: rebasar la suma asegurada ($170–180 M)
-  no es alcanzable desde la interfaz, aunque la fórmula lo contempla y está testeado.
+- El campo de cuenta va de $10,000 a $2,000,000. Con los dos seguros precargados
+  ($170–180 M de suma) ese techo no se rebasa; con un seguro propio de suma baja, sí, y
+  la web lo avisa.
 - No modela periodos de espera, preexistencias, gastos no cubiertos ni deducible por
   accidente. Es una calculadora de las cuatro reglas grandes, no un dictamen.
